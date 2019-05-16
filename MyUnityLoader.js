@@ -2372,8 +2372,8 @@ var UnityLoader = UnityLoader || {
             var r = this.gzip.hasUnityMarker(e) ? this.gzip : this.brotli.hasUnityMarker(e) ? this.brotli : this.identity;
             if (this.serverSetupWarningEnabled && r != this.identity && (console.log("You can reduce your startup time if you configure your web server to host .unityweb files using " + (r == this.gzip ? "gzip" : "brotli") + " compression."), this.serverSetupWarningEnabled = !1), "function" != typeof t) return r.decompress(e);
             if (!r.worker) {
-                   n = URL.createObjectURL(new Blob(["this.require = ",decompressor.require,"; vv = this;this.decompress = ",decompressor.decompress,"; this.onmessage = ",function(e){ t={id:e.data.id,decompressed:vv.decompress(e.data.compressed)};postMessage(t,t.decompressed?[t.decompressed.buffer]:[])},"; postMessage({ ready: true });"]));
-                   
+                   n = URL.createObjectURL(new Blob(["this.require = ",r.require,"; vv = this;this.decompress = ",r.decompress,"; this.onmessage = ",function(e){ t={id:e.data.id,decompressed:vv.decompress(e.data.compressed)};postMessage(t,t.decompressed?[t.decompressed.buffer]:[])},"; postMessage({ ready: true });"]));
+
                 r.worker = new Worker(n), r.worker.onmessage = function(e) {
                     return e.data.ready ? void URL.revokeObjectURL(n) : (this.callbacks[e.data.id](e.data.decompressed), void delete this.callbacks[e.data.id])
                 }, r.worker.callbacks = {}, r.worker.nextCallbackId = 0
